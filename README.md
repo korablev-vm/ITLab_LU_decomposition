@@ -1,2 +1,2 @@
 # ITLab_LU_decomposition
-A project on LU decomposition of matrices. ITLab, RISC-V, 2023
+Проект LU разложения квадратных матриц. (ITLab, RISC-V, ННГУ им. Н.И. Лобачевского, 2023г.)
