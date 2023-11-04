@@ -11,9 +11,8 @@ void Matrix::input() {
 }
 
 Matrix Matrix::multiply(const Matrix& other) {
-    if (size != other.size) {
+    if (size != other.size)
         throw invalid_argument("Матрицы разных размеров не могут быть перемножены.");
-    }
     Matrix result(size);
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
@@ -23,6 +22,16 @@ Matrix Matrix::multiply(const Matrix& other) {
         }
     }
     return result;
+}
+
+vector<double>& Matrix::operator[](int index) {
+    return data[index];
+}
+const vector<double>& Matrix::operator[](int index) const {
+    return data[index];
+}
+size_t Matrix::get_size() const {
+    return size;
 }
 
 void Matrix::LU_Decomposition() {

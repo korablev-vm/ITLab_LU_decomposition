@@ -1,0 +1,15 @@
+language: cpp
+sudo: false
+compiler:
+  - gcc
+before_script:
+  - mkdir ../build
+  - cd ../build
+script:
+  - cmake ../ITLab_LU_decomposition/Solutions
+  - make -j
+  - cd ./base_test/
+  - ls -la
+  - ./decomposition_test
+notifications:
+  email: false
