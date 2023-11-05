@@ -17,11 +17,12 @@ static void BM_LU_Decomposition(benchmark::State& state) {
     FillMatrix(matrix); // Заполнение матрицы перед замером времени
 
     for (auto _ : state) {
-        matrix.LU_Decomposition(); // Выполнение LU-разложения
+        Matrix L(n), U(n); // Создание пустых матриц L и U
+        matrix.LU_Decomposition(L, U); // Выполнение LU-разложения
     }
 }
 
 // Регистрация функции бенчмарка
-BENCHMARK(BM_LU_Decomposition)->Range(8, 8 << 10); // Тестируем матрицы размером от 8x8 до 1024x1024
+BENCHMARK(BM_LU_Decomposition)->Range(2, 2 << 4);
 
 BENCHMARK_MAIN(); // Точка входа для бенчмарка
