@@ -1,13 +1,18 @@
 cmake_minimum_required(VERSION 3.14)
-project(LU_Decomposition)
-
 set(CMAKE_CXX_STANDARD 11)
 
-add_subdirectory(extern/googletest)
-include_directories(extern/googletest/googletest/include)
-add_subdirectory(extern/benchmark)
+set(PROJECT_NAME LU_Decomposition)
+project(${PROJECT_NAME})
+
+set(PROJ_LIBRARY      "${PROJECT_NAME}")
+set(PROJ_TESTS        "test_${PROJECT_NAME}")
+set(PROJ_BENCHMARKS   "benchmarks_${PROJECT_NAME}")
+
+add_subdirectory(extern)
+
 include_directories(include)
+add_subdirectory(src)
+
+add_subdirectory(samples)
 add_subdirectory(tests)
 add_subdirectory(benchmarks)
-
-add_executable(LU_Decomposition src/Matrix.cpp benchmarks/benchmarks.cpp src/Matrix.cpp tests/test.cpp include/Matrix.h)

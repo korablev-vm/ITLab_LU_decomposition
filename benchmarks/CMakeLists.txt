@@ -1,7 +1,8 @@
-# This CMakeLists.txt is for your benchmark cases
+set(target ${PROJ_BENCHMARKS})
 
-# Add benchmark executable
-add_executable(runBenchmarks benchmarks.cpp)
+file(GLOB hdrs "*.h*")
+file(GLOB srcs "*.cpp")
 
-# Link benchmark executable against the benchmark library
-target_link_libraries(runBenchmarks benchmark::benchmark)
+add_executable(${target} ${srcs} ${hdrs})
+
+target_link_libraries(${target} benchmark::benchmark ${PROJ_LIBRARY})

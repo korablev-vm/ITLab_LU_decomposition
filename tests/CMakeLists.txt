@@ -1,10 +1,13 @@
-# This CMakeLists.txt is for your test cases
+set(target ${PROJ_TESTS})
 
-# Include the GoogleTest library
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+file(GLOB hdrs "*.h*")
+file(GLOB srcs "*.cpp")
 
-# Add test cpp file
-add_executable(runUnitTests test.cpp)
+enable_testing()
 
-# Link test executable against gtest & gtest_main
-target_link_libraries(runUnitTests gtest gtest_main)
+add_executable(${target} ${srcs} ${hdrs})
+
+target_link_libraries(${target} GTest::gtest_main ${PROJ_LIBRARY})
+
+include(GoogleTest)
+gtest_discover_tests(${target})
