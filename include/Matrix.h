@@ -1,6 +1,5 @@
-#ifndef __MATRIX_H__
-#define __MATRIX_H__
-
+#ifndef LU_DECOMPOSITION_MATRIX_H
+#define LU_DECOMPOSITION_MATRIX_H
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -24,4 +23,4 @@ public:
     void LU_Decomposition(Matrix& L, Matrix& U);
 };
 
-#endif // __MATRIX_H__
+#endif //LU_DECOMPOSITION_MATRIX_H
