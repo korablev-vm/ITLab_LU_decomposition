@@ -23,6 +23,6 @@ static void BM_LU_Decomposition(benchmark::State& state) {
 }
 
 // Регистрация функции бенчмарка
-BENCHMARK(BM_LU_Decomposition)->Range(2, 2 << 4);
+BENCHMARK(BM_LU_Decomposition)->Range(4, 1 << 10);
 
 BENCHMARK_MAIN(); // Точка входа для бенчмарка
