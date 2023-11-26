@@ -1,189 +1,112 @@
 #include "Matrix.h"
+#include <cstring> // Для использования memset и memcpy
 
-Matrix::Matrix(int sz) : size(sz), data(sz, vector<double>(sz, 0)) {}
+// Конструктор
+Matrix::Matrix(int sz) : size(sz) {
+    data = new double[sz * sz];
+    memset(data, 0, sz * sz * sizeof(double));
+}
 
+// Конструктор копирования
+Matrix::Matrix(const Matrix& other) : size(other.size) {
+    data = new double[size * size];
+    memcpy(data, other.data, size * size * sizeof(double));
+}
+
+// Оператор присваивания
+Matrix& Matrix::operator=(const Matrix& other) {
+    if (this != &other) {
+        delete[] data;
+        size = other.size;
+        data = new double[size * size];
+        memcpy(data, other.data, size * size * sizeof(double));
+    }
+    return *this;
+}
+
+// Деструктор
+Matrix::~Matrix() {
+    delete[] data;
+}
+
+// Оператор доступа (для изменения)
+double& Matrix::operator()(int row, int col) {
+    return data[index(row, col)];
+}
+
+// Оператор доступа (для чтения)
+const double& Matrix::operator()(int row, int col) const {
+    return data[index(row, col)];
+}
+
+// Получение размера матрицы
+size_t Matrix::get_size() const {
+    return size;
+}
+
+// Ввод данных в матрицу
 void Matrix::input() {
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            cin >> data[i][j];
+            cin >> data[index(i, j)];
         }
     }
 }
 
+// Умножение матриц
 Matrix Matrix::multiply(const Matrix& other) {
     if (size != other.size)
-        throw invalid_argument("Матрицы разных размеров не могут быть перемножены.");
+        throw invalid_argument("Matrix sizes do not match for multiplication.");
+
     Matrix result(size);
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
             for (int k = 0; k < size; ++k) {
-                result.data[i][j] += data[i][k] * other.data[k][j];
+                result(i, j) += (*this)(i, k) * other(k, j);
             }
         }
     }
     return result;
 }
 
-vector<double>& Matrix::operator[](int index) {
-    return data[index];
-}
-const vector<double>& Matrix::operator[](int index) const {
-    return data[index];
-}
-int Matrix::get_size() const {
-    return size;
-}
-
+// LU-разложение (простая реализация)
 void Matrix::LU_Decomposition(Matrix& L, Matrix& U) {
-    if (L.size != size || U.size != size) {
-        throw std::invalid_argument("Матрицы L и U должны быть того же размера, что и исходная матрица.");
-    }
+    if (L.size != size || U.size != size)
+        throw invalid_argument("Matrix sizes do not match for LU decomposition.");
 
-    // Инициализация матриц L и U
-    for (size_t i = 0; i < size; ++i) {
-        for (size_t j = 0; j < size; ++j) {
-            L[i][j] = 0;
-            U[i][j] = 0;
-            if (i == j) {
-                L[i][j] = 1;
-            }
-        }
-    }
-    // Блочное LU-разложение
-    for (size_t i = 0; i < size; i += blockSize) {
-        for (size_t j = 0; j < size; j += blockSize) {
-            for (size_t k = 0; k < size; k += blockSize) {
-                // Обработка блока
-                for (size_t ii = i; ii < min(i + blockSize, size); ++ii) {
-                    for (size_t jj = j; jj < min(j + blockSize, size); ++jj) {
-                        if (ii <= jj) {
-                            // Вычисляем элементы матрицы U
-                            U[ii][jj] = data[ii][jj];
-                            for (size_t kk = k; kk < ii; ++kk) {
-                                U[ii][jj] -= L[ii][kk] * U[kk][jj];
-                            }
-                        }
-                        else {
-                            // Вычисляем элементы матрицы L
-                            L[ii][jj] = data[ii][jj];
-                            for (size_t kk = k; kk < jj; ++kk) {
-                                L[ii][jj] -= L[ii][kk] * U[kk][jj];
-                            }
-                            if (U[jj][jj] == 0) {
-                                throw std::runtime_error("Матрица вырожденная или не имеет LU-разложения.");
-                            }
-                            L[ii][jj] /= U[jj][jj];
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-//Первая версия (без блочного разложения) 
-/*
-void Matrix::LU_Decomposition(Matrix& L, Matrix& U) {
-    if (L.size != size || U.size != size) {
-        throw std::invalid_argument("Матрицы L и U должны быть того же размера, что и исходная матрица.");
-    }
-
-    // Инициализация матриц L и U
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            L[i][j] = 0;
-            U[i][j] = 0;
-            if (i == j) {
-                L[i][j] = 1; // Диагональ матрицы L заполняется единицами
+            if (j < i)
+                L(j, i) = 0;
+            else {
+                L(j, i) = (*this)(j, i);
+                for (int k = 0; k < i; k++) {
+                    L(j, i) = L(j, i) - L(j, k) * U(k, i);
+                }
             }
         }
-    }
-
-
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            if (i <= j) {
-                // Вычисляем элементы матрицы U
-                U[i][j] = data[i][j];
-                for (int k = 0; k < i; k++) {
-                    U[i][j] -= L[i][k] * U[k][j];
-                }
-                if (i == j && U[i][j] == 0) {
-                    throw std::runtime_error("Матрица вырожденная или не имеет LU-разложения.");
-                }
-            }
+        for (int j = 0; j < size; ++j) {
+            if (j < i)
+                U(i, j) = 0;
+            else if (j == i)
+                U(i, j) = 1;
             else {
-                // Вычисляем элементы матрицы L
-                L[i][j] = data[i][j];
-                for (int k = 0; k < j; k++) {
-                    L[i][j] -= L[i][k] * U[k][j];
-                }
-                if (U[j][j] == 0) {
-                    if (L[i][j] != 0) { // Если элемент не нулевой, то это ошибка
-                        throw std::runtime_error("Матрица не имеет LU-разложения.");
-                    }
-                    // Если элемент нулевой, то это нулевая строка, и ошибки нет
-                }
-                else {
-                    L[i][j] /= U[j][j];
+                U(i, j) = (*this)(i, j) / L(i, i);
+                for (int k = 0; k < i; k++) {
+                    U(i, j) = U(i, j) - ((L(i, k) * U(k, j)) / L(i, i));
                 }
             }
         }
     }
 }
-*/
 
+// Оператор вывода
 ostream& operator<<(ostream& os, const Matrix& matrix) {
     for (int i = 0; i < matrix.size; ++i) {
         for (int j = 0; j < matrix.size; ++j) {
-            os << matrix.data[i][j] << " ";
+            os << matrix(i, j) << " ";
         }
         os << endl;
     }
     return os;
 }
-
-
-
-
-//старые версии, недоработки:
-/*
-
-//void Matrix::LU_Decomposition(Matrix& L, Matrix& U) {
-//    if (L.size != size || U.size != size) {
-//        throw std::invalid_argument("Матрицы L и U должны быть того же размера, что и исходная матрица.");
-//    }
-//    // Инициализация матриц L и U
-//    for (int i = 0; i < size; ++i) {
-//        for (int j = 0; j < size; ++j) {
-//            L[i][j] = 0;
-//            U[i][j] = 0;
-//            if (i == j) {
-//                L[i][j] = 1; // Диагональ матрицы L заполняется единицами
-//            }
-//        }
-//    }
-//    for (int i = 0; i < size; i++) {
-//        for (int j = 0; j < size; j++) {
-//            if (i <= j) {
-//                // Вычисляем элементы матрицы U
-//                U[i][j] = data[i][j];
-//                for (int k = 0; k < i; k++) {
-//                    U[i][j] -= L[i][k] * U[k][j];
-//                }
-//            }
-//            else {
-//                // Вычисляем элементы матрицы L
-//                L[i][j] = data[i][j];
-//                for (int k = 0; k < j; k++) {
-//                    L[i][j] -= L[i][k] * U[k][j];
-//                }
-//                if (U[j][j] == 0) {
-//                    throw std::runtime_error("Деление на ноль в процессе LU-разложения.");
-//                }
-//                L[i][j] /= U[j][j];
-//            }
-//        }
-//    }
-//}
-*/
