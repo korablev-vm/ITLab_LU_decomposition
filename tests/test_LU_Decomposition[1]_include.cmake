@@ -1,0 +1,5 @@
+if(EXISTS "C:/Users/edlor_k/Documents/GitHub/ITLab_LU_decomposition/tests/test_LU_Decomposition[1]_tests.cmake")
+  include("C:/Users/edlor_k/Documents/GitHub/ITLab_LU_decomposition/tests/test_LU_Decomposition[1]_tests.cmake")
+else()
+  add_test(test_LU_Decomposition_NOT_BUILT test_LU_Decomposition_NOT_BUILT)
+endif()

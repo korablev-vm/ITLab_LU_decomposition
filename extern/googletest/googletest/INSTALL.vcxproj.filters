@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\edlor_k\Documents\GitHub\ITLab_LU_decomposition\CMakeFiles\d4f5482ec098422c7d4ced05daa62843\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{0AD0DBA7-79ED-3B09-B95F-511782500969}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

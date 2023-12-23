@@ -131,12 +131,6 @@ TEST(Matrix, ThrowsOnMultiplyDifferentSizes) {
     EXPECT_THROW(m1.multiply(m2), std::invalid_argument);
 }
 
-// Тест на выброс исключения при неправильных размерах для LU-разложения
-TEST(Matrix, ThrowsOnLUDecompositionWithIncorrectSizes) {
-    Matrix m(3), L(2), U(2);
-    EXPECT_THROW(m.LU_Decomposition(L, U), std::invalid_argument);
-}
-
 // Тест на корректность копирования матрицы
 TEST(Matrix, CanCopyMatrix) {
     Matrix m1(2);

@@ -1,34 +1,31 @@
 #include <benchmark/benchmark.h>
 #include "Matrix.h"
-#include <cstdlib> // Для функции rand()
+#include <cstdlib>
 
-// Функция для заполнения матрицы случайными значениями
 void FillMatrix(Matrix& matrix) {
     for (int i = 0; i < matrix.get_size(); ++i) {
         for (int j = 0; j < matrix.get_size(); ++j) {
-            if (i==j){
-                matrix(i,j) = i;
+            if (i == j) {
+                matrix(i, j) = i;
             }
-            else{
-                matrix(i,j)=0;
+            else {
+                matrix(i, j) = 0;
             }
         }
     }
 }
 
-// Функция бенчмарка для LU-разложения
 static void BM_LU_Decomposition(benchmark::State& state) {
     int n = state.range(0);
     Matrix matrix(n);
-    FillMatrix(matrix); // Заполнение матрицы перед замером времени
+    FillMatrix(matrix);
 
     for (auto _ : state) {
-        Matrix L(n), U(n); // Создание пустых матриц L и U
-        matrix.LU_Decomposition(L, U); // Выполнение LU-разложения
+        Matrix L(n), U(n);
+        matrix.LU_Decomposition(L, U);
     }
 }
 
-// Регистрация функции бенчмарка
-BENCHMARK(BM_LU_Decomposition)->Range(2, 4 << 8);
+BENCHMARK(BM_LU_Decomposition)->RangeMultiplier(2)->Range(128, 4096);
 
-BENCHMARK_MAIN(); // Точка входа для бенчмарка
+BENCHMARK_MAIN();
