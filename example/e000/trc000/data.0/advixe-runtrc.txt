@@ -1,0 +1,8 @@
+
+=== Start: [2024/03/11 18:25:02] === 
+Analysis started...
+Result file: C:\Users\korab\source\repos\LU_Decomposition\example\e000\trc000\trc000.advixe 
+Application exit code: 0 
+Result file: C:\Users\korab\source\repos\LU_Decomposition\example\e000\trc000\trc000.advixe 
+Analysis completed
+=== End: [2024/03/11 18:25:11] === 

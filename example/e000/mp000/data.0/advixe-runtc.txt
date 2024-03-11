@@ -1,0 +1,31 @@
+
+=== Start: [2024/03/11 18:25:25] === 
+Analysis started...
+Result file: C:\Users\korab\source\repos\LU_Decomposition\example\e000\mp000\mp000.advixe 
+Found target process c:\users\korab\source\repos\lu_decomposition\x64\release\example.exe (PID = 18616). Analysis started... 
+Loaded module: c:\users\korab\source\repos\lu_decomposition\x64\release\example.exe. 
+Loaded module: c:\windows\system32\kernelbase.dll. 
+Loaded module: c:\windows\system32\kernel32.dll. 
+Loaded module: c:\windows\system32\ntdll.dll. 
+Loaded module: c:\windows\system32\ucrtbase.dll. 
+Loaded module: c:\windows\system32\vcruntime140_1.dll. 
+Loaded module: c:\windows\system32\vcruntime140.dll. 
+Loaded module: c:\windows\system32\msvcp140.dll. 
+Loaded module: c:\windows\system32\kernel.appcore.dll. 
+Loaded module: c:\windows\system32\msvcrt.dll. 
+Unloaded module: c:\users\korab\source\repos\lu_decomposition\x64\release\example.exe. 
+Unloaded module: c:\windows\system32\kernelbase.dll. 
+Unloaded module: c:\windows\system32\kernel32.dll. 
+Unloaded module: c:\windows\system32\ntdll.dll. 
+Unloaded module: c:\windows\system32\ucrtbase.dll. 
+Unloaded module: c:\windows\system32\vcruntime140_1.dll. 
+Unloaded module: c:\windows\system32\vcruntime140.dll. 
+Unloaded module: c:\windows\system32\msvcp140.dll. 
+Unloaded module: c:\windows\system32\kernel.appcore.dll. 
+Unloaded module: c:\windows\system32\msvcrt.dll. 
+Process c:\users\korab\source\repos\lu_decomposition\x64\release\example.exe (PID = 18616) has terminated. 
+Warning: No SITE annotations were encountered, so no stride/alignment data can be reported. 
+Application exit code: 0 
+Result file: C:\Users\korab\source\repos\LU_Decomposition\example\e000\mp000\mp000.advixe 
+Analysis completed
+=== End: [2024/03/11 18:25:48] === 

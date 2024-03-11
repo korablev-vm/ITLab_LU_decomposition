@@ -1,0 +1,25 @@
+# callstacks file version: 8
+#    rowid	    parent	       rva	 loop	 system	                                function	binary	instance_start_rva	instance_size	instance_end_rva	finst_rowid	roi	is_inlined	jit_method_id	tripcounts_roi	flops_roi	cachesim_roi	data_transfer_roi	projection_roi
+         1	        -1	      7404	    0	      0	                          mainCRTStartup	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	7404	18	0	1	0	0	0	0	0	0	0	0
+         2	        -1	    371319	    0	      1	                      RtlUserThreadStart	C:\Windows\SYSTEM32\ntdll.dll	371280	78	0	11	0	0	0	0	0	0	0	0
+         3	         2	     75132	    0	      1	                     BaseThreadInitThunk	C:\Windows\System32\KERNEL32.DLL	75104	105	0	12	0	0	0	0	0	0	0	0
+         4	         9	      7291	    0	      0	                             invoke_main	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	7258	36	0	2	0	1	0	0	0	0	0	0
+         5	         4	      5805	    0	      0	                                    main	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	5152	951	0	4	0	0	0	0	0	0	0	0
+         6	        14	      4990	    1	      0	[Loop at line 141 in Matrix::LU_Decomposition]	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4960	39	4999	5	0	0	0	0	0	0	0	0
+         7	        14	      4984	    1	      0	[Loop at line 141 in Matrix::LU_Decomposition]	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4960	39	4999	5	0	0	0	0	0	0	0	0
+         8	        20	      5044	    0	      0	                      Matrix::operator()	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	5044	10	0	10	0	1	0	0	0	0	0	0
+         9	         3	      7258	    0	      0	                  __scrt_common_main_seh	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	7024	380	0	3	0	0	0	0	0	0	0	0
+        10	         3	      7291	    0	      0	                  __scrt_common_main_seh	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	7024	380	0	3	0	0	0	0	0	0	0	0
+        11	         5	      4464	    0	      0	                Matrix::LU_Decomposition	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4288	858	0	6	0	0	0	0	0	0	0	0
+        12	        11	      4896	    1	      0	[Loop at line 112 in Matrix::LU_Decomposition]	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4464	650	5114	9	0	0	0	0	0	0	0	0
+        13	        12	      4912	    1	      0	[Loop at line 136 in Matrix::LU_Decomposition]	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4896	204	5100	8	0	0	0	0	0	0	0	0
+        14	        13	      4960	    1	      0	[Loop at line 137 in Matrix::LU_Decomposition]	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4912	172	5084	7	0	0	0	0	0	0	0	0
+        15	         5	      4990	    0	      0	                Matrix::LU_Decomposition	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4288	858	0	6	0	0	0	0	0	0	0	0
+        16	         5	      4984	    0	      0	                Matrix::LU_Decomposition	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4288	858	0	6	0	0	0	0	0	0	0	0
+        17	         5	      4464	    0	      0	                Matrix::LU_Decomposition	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4288	858	0	6	0	0	0	0	0	0	0	0
+        18	        17	      4896	    1	      0	[Loop at line 112 in Matrix::LU_Decomposition]	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4464	650	5114	9	0	0	0	0	0	0	0	0
+        19	        18	      4912	    1	      0	[Loop at line 136 in Matrix::LU_Decomposition]	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4896	204	5100	8	0	0	0	0	0	0	0	0
+        20	        19	      5044	    1	      0	[Loop at line 137 in Matrix::LU_Decomposition]	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4912	172	5084	7	0	0	0	0	0	0	0	0
+        21	        19	      5044	    1	      0	[Loop at line 137 in Matrix::LU_Decomposition]	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4912	172	5084	7	0	0	0	0	0	0	0	0
+        22	         5	      5044	    0	      0	                Matrix::LU_Decomposition	C:\Users\korab\source\repos\LU_Decomposition\x64\Release\example.exe	4288	858	0	6	0	0	0	0	0	0	0	0
+        23	        -1	         0	    0	      0	                [Unknown stack frame(s)]	n/a	0	0	0	14	0	0	0	0	0	0	0	0
