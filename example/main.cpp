@@ -5,53 +5,33 @@
 
 using namespace std;
 
-/*
-доделать:
-advisor подключить (почитать, что это такое). inspector - ищем ошибки работы с памятью/гонки данных; интринсики. advisor - тул, чтобы не имея конкретного железа можно было
-предсказать, насколько хорошо программа распараллелится. дает свои рекомендации. к следующему собранию принести рофлайны (результаты работы этих инструментов). Рофлайн модель - способ визуализировать текущие показатели
-производительности
-*/
-
 int main() {
-    size_t n;
-    cout << "Enter matrix size: ";
-    cin >> n;
+    size_t n = 1024;
 
-    Matrix matrix(n);
+    Matrix<double> matrix = Matrix<double>::createDiagonallyDominantMatrix(n);
 
-    // Заполнение матрицы: диагональные элементы = 1, остальные = 0
-    for (size_t i = 0; i < n; ++i) {
-        for (size_t j = 0; j < n; ++j) {
-            matrix(i, j) = (i == j) ? 1.0 : 0.0;
-        }
-    }
-
-    Matrix L(n), U(n);
-    Matrix clear = matrix;
-    auto start = chrono::high_resolution_clock::now();
+    Matrix<double> L(n), U(n);
+    Matrix<double> clear = matrix;
+    auto start = std::chrono::high_resolution_clock::now();
     matrix.LU_Decomposition(L, U);
-    auto end = chrono::high_resolution_clock::now();
-    chrono::duration<double> diff = end - start;
-    cout << "Time for LU decomposition: " << diff.count() << " seconds\n";
-    //cout << L << endl;
-    //cout << U << endl;
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end - start;
+    std::cout << "Time for LU decomposition: " << diff.count() << " seconds\n";
 
-    //// MKL
-    //int* ipiv = new int[n];
-    //auto start_mkl = chrono::high_resolution_clock::now();
-    //LAPACKE_dgetrf(LAPACK_ROW_MAJOR, n, n, clear.get_data(), n, ipiv);
-    //auto end_mkl = chrono::high_resolution_clock::now();
-    //chrono::duration<double> diff_mkl = end_mkl - start_mkl;
-    //cout << "Time for LU decomposition (MKL): " << diff_mkl.count() << " seconds\n";
+    /* start = std::chrono::high_resolution_clock::now();
+     clear.LU_Decomposition_base(L, U);
+     end = std::chrono::high_resolution_clock::now();
+     diff = end - start;
+     std::cout << "Time for LU decomposition (base): " << diff.count() << " seconds\n";*/
 
-    //for (int v = 0; v < 7; v++)
-    //{
-    //    start_mkl = chrono::high_resolution_clock::now();
-    //    LAPACKE_dgetrf(LAPACK_ROW_MAJOR, n, n, clear.get_data(), n, ipiv);
-    //    end_mkl = chrono::high_resolution_clock::now();
-    //    diff_mkl = end_mkl - start_mkl;
-    //    cout << "Time for LU decomposition (MKL): " << diff_mkl.count() << " seconds\n";
-    //}
+     //// MKL
+    int* ipiv = new int[n];
+    auto start_mkl = std::chrono::high_resolution_clock::now();
+    LAPACKE_dgetrf(LAPACK_ROW_MAJOR, n, n, clear.get_data(), n, ipiv);
+    auto end_mkl = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff_mkl = end_mkl - start_mkl;
+    std::cout << "Time for LU decomposition (MKL): " << diff_mkl.count() << " seconds\n";
 
+    delete[] ipiv;
     return 0;
 }
